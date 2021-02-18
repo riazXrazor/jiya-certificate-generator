@@ -1,2 +1,3 @@
-# jiya-certificate-generator
-jiya-certificate-generator
+# Certificate Generator for JIYA
+
+Certificate Generator for JIYA
