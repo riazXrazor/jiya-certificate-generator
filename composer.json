@@ -1,5 +1,5 @@
 {
-    "name":"jiya-certificate-generator",
+    "name":"riazxrazor/jiya-certificate-generator",
     "description": "jiya-certificate-generator",
     "require": {
       "ext-gd": "*"
