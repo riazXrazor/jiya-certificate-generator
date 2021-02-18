@@ -26,6 +26,8 @@
     </form>
     <br>
     <?php 
+    error_reporting(E_ALL);
+    ini_set("display_errors", 1);
       if (isset($_POST['generate'])) {
         $name = strtoupper($_POST['name']);
         $name_len = strlen($_POST['name']);
