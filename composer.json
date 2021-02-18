@@ -1,0 +1,7 @@
+{
+    "name":"jiya-certificate-generator",
+    "description": "jiya-certificate-generator",
+    "require": {
+      "ext-gd": "*"
+    }
+}
