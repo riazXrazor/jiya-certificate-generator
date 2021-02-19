@@ -15,15 +15,31 @@
       <br><br><br>
       <h3>JIYA Certificate Generator</h3>
       <br><br><br><br>
+      <div class="container">
       <form method="post" action="">
-      <div class="form-group col-sm-6">
+      <div class="row">
+      <div class="form-group col-sm-12 col-md-12">
         <input type="text" name="name" class="form-control" id="name" placeholder="Enter Name Here...">
       </div>
-      <!-- <div class="form-group col-sm-6">
-        <input type="text" name="occupation" class="form-control" id="organization" placeholder="Enter Organization Name Here...">
-      </div> -->
+      <div class="form-group col-sm-12 col-md-4">
+      <select class="form-control" name="gender">
+        <option value="he">Male</option>
+        <option value="she">Female</option>
+      </select>
+      </div>
+      <div class="form-group col-sm-12 col-md-4">
+      <select class="form-control" name="template">
+        <option value="SuperJiyan">SuperJiyan</option>
+        <option value="IncredibleJiyan">Incredible JIyan</option>
+      </select>
+      </div>
+      <div class="form-group col-sm-12 col-md-4">
+       <input class="form-control" type="date" name="cdate" />
+      </div>
+      </div>
       <button type="submit" name="generate" class="btn btn-primary">Generate</button>
     </form>
+    </div>
     <br>
     <?php 
     error_reporting(E_ALL);
@@ -51,9 +67,17 @@
           </div>
           ";
 
-          $current_date = date('d/m/Y');
+          //print_r($_POST);
+          $current_date = date('jS F');
+          $current_year = date('Y');
+          if($_POST['cdate']){
+            $cdate = strtotime($_POST['cdate']);
+            $current_date = date('jS F',$cdate);
+            $current_year = date('Y',$cdate);
+          }
           //designed certificate picture
-          $image = "Certificates-2.png";
+          $image = $_POST['template'].'.png';
+          $gender = $_POST['gender'];
           list($mwidth,$mheight) = getimagesize($image);
 
 
@@ -77,11 +101,14 @@
           $origin1_x = 800;
           $origin1_y= $mheight - 130;
 
+          $origin2_x = 814;
+          $origin2_y= $mheight - 607;
+
           //we then set the differnet size range based on the lenght of the text which we have declared when we called values from the form
           
             $font_size = 55;
             $dfont_size = 30;
-            $origin_x = $mwidth/2 - $font_size;
+            $origin_x = $mwidth/2 - 300;
           
    
 
@@ -89,26 +116,42 @@
           $certificate_text = $name;
 
           //font directory for name
-          $drFont = dirname(__FILE__)."/fonts/Roboto-Black.ttf";
+          $drFont = dirname(__FILE__)."/fonts/Courgette-Regular.ttf";
 
                  
           $bbox = imagettfbbox($font_size, 0, $drFont, $certificate_text);
 
 
-          $origin_x = $bbox[0] + (imagesx($createimage) / 2) - ($bbox[4] / 2) + 50;
+          //$origin_x = $bbox[0] + (imagesx($createimage) / 2) - ($bbox[4] / 2) + (-220);
           //$y = $bbox[1] + (imagesy($createimage) / 2) - ($bbox[5] / 2) - 5;
 
 
     
 
-          // font directory for occupation name
-           $drFont1 = dirname(__FILE__)."/fonts/Roboto-Black.ttf";
+          // font directory for date name
+           $drFont1 = dirname(__FILE__)."/fonts/GlacialIndifference-Bold.otf";
+           $drFont11 = dirname(__FILE__)."/fonts/GlacialIndifference-Regular.otf";
+           $color1 = imagecolorallocate($createimage, 240,78,63);
+           if($_POST['template'] === 'IncredibleJiyan'){
+            $color1 = imagecolorallocate($createimage, 0,114,198);
+           }
+           $dfont_size1 = 35;
+
+           // font directory for gender name
+           $drFont2 = dirname(__FILE__)."/fonts/CooperHewitt-Book.otf";
+           $dfont_size2 = 40;
+           $color2 = imagecolorallocate($createimage, 51,51,51);
 
           //function to display name on certificate picture
-          $text1 = imagettftext($createimage, $font_size, $rotation, $origin_x, $origin_y, $black,$drFont, $certificate_text);
+          $text1 = imagettftext($createimage, $font_size, $rotation, $origin_x, $origin_y, $color1,$drFont, $certificate_text);
 
-          //function to display occupation name on certificate picture
-          $text2 = imagettftext($createimage, $dfont_size, $rotation, $origin1_x, $origin1_y, $black, $drFont1, $current_date);
+          //function to display date on certificate picture
+          $text2 = imagettftext($createimage, $dfont_size1, $rotation, $origin1_x, $origin1_y, $color1, $drFont1, $current_date);
+          //function to display date on certificate picture
+          $text22 = imagettftext($createimage, $dfont_size1 - 1, $rotation, $origin1_x + 100, $origin1_y + 75, $color2, $drFont11, $current_year);
+
+          //function to display gender on certificate picture
+          $text3 = imagettftext($createimage, $dfont_size2, $rotation, $origin2_x, $origin2_y, $color2, $drFont2, $gender);
 
           imagepng($createimage,$output,3);
 
