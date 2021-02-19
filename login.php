@@ -3,8 +3,8 @@
  if(isset($_SESSION['loggedIn'])){
     header("Location: .");
  }
- $USERNAME = 'jiya_admin';
- $PASS = 'aWT867Agam80';
+ $USERNAME = '';
+ $PASS = '';
  if(isset($_POST['jiya-login'])){
      $user = $_POST['jiya-username'];
      $pass = $_POST['jiya-password'];
