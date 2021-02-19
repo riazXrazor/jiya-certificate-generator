@@ -1,3 +1,10 @@
+<?php
+ session_start();
+ if(!isset($_SESSION['loggedIn'])){
+   header("Location: login.php");
+ }
+ 
+ ?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -173,6 +180,10 @@
       }
 
      ?>
+
+    <div id="formFooter">
+      <a class="underlineHover" href="logout.php">Logout</a>
+    </div>
 
     </center>
 
