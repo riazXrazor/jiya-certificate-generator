@@ -6,7 +6,7 @@
 
 
 $USERNAME = 'jiya_admin';
-$PASS = 'd8Z7x58JMFdC';
+$PASS = '';
 
  if(isset($_POST['jiya-login'])){
      $user = $_POST['jiya-username'];
