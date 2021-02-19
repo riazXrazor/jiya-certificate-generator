@@ -76,8 +76,9 @@
             $current_year = date('Y',$cdate);
           }
           //designed certificate picture
-          $image = $_POST['template'].'.png';
           $gender = $_POST['gender'];
+          $image = $_POST['template'].'_'.$gender.'.png';
+          
           list($mwidth,$mheight) = getimagesize($image);
 
 
@@ -150,8 +151,8 @@
           //function to display date on certificate picture
           $text22 = imagettftext($createimage, $dfont_size1 - 1, $rotation, $origin1_x + 100, $origin1_y + 75, $color2, $drFont11, $current_year);
 
-          //function to display gender on certificate picture
-          $text3 = imagettftext($createimage, $dfont_size2, $rotation, $origin2_x, $origin2_y, $color2, $drFont2, $gender);
+          // //function to display gender on certificate picture
+          // $text3 = imagettftext($createimage, $dfont_size2, $rotation, $origin2_x, $origin2_y, $color2, $drFont2, $gender);
 
           imagepng($createimage,$output,3);
 
